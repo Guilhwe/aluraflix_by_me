@@ -4,4 +4,5 @@ from aluraflix.models import Video
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        fields ='__all__'
+        fields ='__all__'  
+        
