@@ -1,8 +1,9 @@
 
 from django.contrib import admin
 from django.urls import path, include
+from aluraflix.views import videos
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', include('aluraflix.urls')),
+    path('videos/',videos)
 ]
