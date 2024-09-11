@@ -4,3 +4,5 @@ La idea de esto es emular una petición en el muindo real de un proyecto.
 
 El proyecto empieza pidiendo un CRUD para una pagina WEB que redirige a videos pregrabados en YT. Para facilitar la tarea y aprovechando conocimientos adquiridos en cursos anteriores,
 opté por utilizar el DjandoRestFramework, pues nos brinda con un CRUD mas que valido y moldeable para esta tarea
+
+Este Proyecto solamente se centrará en BACK-END.
