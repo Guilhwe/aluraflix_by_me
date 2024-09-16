@@ -57,7 +57,7 @@ class VideosTestCase(APITestCase):
         '''Test para la requisicion PUT/PATCH de un video'''
         datos ={
             'titulo':'test',
-            'description':'testput',
+            'description':'testpatch',
             'url':'https://www.ejemplo3.com',
             'categoria':'1',
         }
