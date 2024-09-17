@@ -6,24 +6,29 @@ from aluraflix.models import Video,Categoria1
 from aluraflix.serializers import VideoSerializer
 
 class VideosTestCase(APITestCase):
+    fixtures =['banco.json']
     def setUp(self):
         categoria_ejemplo = Categoria1.objects.create(nombre='1',color='rosa')
-        self.usuario= User.objects.create_superuser(username='admin',password='admin')
+        # self.usuario= User.objects.create_superuser(username='admin',password='admin')
+        self.usuario = User.objects.get(username ='willy')
         self.url = reverse('videos-list')
         self.client.force_authenticate(user=self.usuario)
-        self.video_01 = Video.objects.create(
-            titulo = 'TITULO TEST 1',
-            description = 'EJEMPLO1',
-            url = 'https://www.ejemplo1.com',
-            categoria = categoria_ejemplo
-        )
-        self.video_02 = Video.objects.create(
-            titulo = 'TITULO TEST 2',
-            description = 'EJEMPLO2',
-            url = 'https://www.ejemplo2.com',
-            categoria = categoria_ejemplo
-        )
+        # self.video_01 = Video.objects.create(
+        #     titulo = 'TITULO TEST 1',
+        #     description = 'EJEMPLO1',
+        #     url = 'https://www.ejemplo1.com',
+        #     categoria = categoria_ejemplo
+        # )
+        self.video_02 = Video.objects.get(pk=2)
+        # self.video_02 = Video.objects.create(
+        #     titulo = 'TITULO TEST 2',
+        #     description = 'EJEMPLO2',
+        #     url = 'https://www.ejemplo2.com',
+        #     categoria = categoria_ejemplo
+        # )
+        self.video_03 =Video.objects.get(pk=3)
     
+
     def test_get_para_listar_videos(self):
         '''Test para la requisicion GET'''
         response = self.client.get(self.url)
@@ -31,9 +36,9 @@ class VideosTestCase(APITestCase):
     
     def test_get_para_listar_un_video(self):
         '''Test para la requisicion GET de un video'''
-        response = self.client.get(self.url+'1/')
+        response = self.client.get(self.url+'2/')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
-        datos_video = Video.objects.get(pk=1)
+        datos_video = Video.objects.get(pk=2)
         datos_video_serializados = VideoSerializer(instance=datos_video).data
         self.assertEqual(response.data,datos_video_serializados)
     
@@ -50,7 +55,7 @@ class VideosTestCase(APITestCase):
     
     def test_post_para_BORRAR_un_video(self):
         '''Test para la requisicion DELETE de un video'''
-        respose = self.client.delete(self.url+'1/')
+        respose = self.client.delete(self.url+'2/')
         self.assertEqual(respose.status_code,status.HTTP_204_NO_CONTENT)
     
     def test_post_para_actualizar_un_video(self):
