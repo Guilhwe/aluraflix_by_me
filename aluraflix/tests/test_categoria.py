@@ -6,20 +6,24 @@ from aluraflix.models import Video,Categoria1
 from aluraflix.serializers import Categoria1Serializer
 
 class CategoriasTestCase(APITestCase):
+    fixtures=['banco.json']
     def setUp(self):
-        self.usuario= User.objects.create_superuser(username='admin',password='admin')
+        # self.usuario= User.objects.create_superuser(username='admin',password='admin')
+        self.usuario =User.objects.get(username='willy')
         self.url = reverse('Categorias-list')
         self.client.force_authenticate(user=self.usuario)
-        self.categoria_01 = Categoria1.objects.create(
-            nombre = 'CatEj1',
-            color = 'EJEMPLO1',
+        # self.categoria_01 = Categoria1.objects.create(
+        #     nombre = 'CatEj1',
+        #     color = 'EJEMPLO1',
             
-        )
-        self.categoria_02 = Categoria1.objects.create(
-            nombre = 'CatEj2',
-            color = 'EJEMPLO2',
+        # )
+        self.categoria_01 =Categoria1.objects.get(pk=1)
+        # self.categoria_02 = Categoria1.objects.create(
+        #     nombre = 'CatEj2',
+        #     color = 'EJEMPLO2',
             
-        )
+        # )
+        self.categoria_03 =Categoria1.objects.get(pk=3)
     
     def test_get_para_listar_categorias(self):
         '''Test para la requisicion GET'''
@@ -46,7 +50,7 @@ class CategoriasTestCase(APITestCase):
     
     def test_post_para_BORRAR_una_categoria(self):
         '''Test para la requisicion DELETE de una categoria'''
-        respose = self.client.delete(self.url+'2/')
+        respose = self.client.delete(self.url+'3/')
         self.assertEqual(respose.status_code,status.HTTP_204_NO_CONTENT)
     
     def test_post_para_actualizar_una_categoria(self):
@@ -56,5 +60,5 @@ class CategoriasTestCase(APITestCase):
             'color':'testpatch',
             
         }
-        respose = self.client.patch(self.url+'2/')
+        respose = self.client.patch(self.url+'3/')
         self.assertEqual(respose.status_code,status.HTTP_200_OK)
