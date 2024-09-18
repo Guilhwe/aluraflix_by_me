@@ -4,8 +4,9 @@ from rest_framework import viewsets,filters,generics
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework .exceptions import AuthenticationFailed
-from rest_framework.response import Response
+from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.permissions import AllowAny
+
 
 class CustomBasicAuthentication(BasicAuthentication):
     def authenticate(self, request):
@@ -38,3 +39,14 @@ class ListaVideoPorCategoria(generics.ListAPIView):
         queryset = Video.objects.filter(categoria = self.kwargs['pk'])
         return queryset
     serializer_class =ListaVideosPorCategoriaSerializer
+
+class ListaVideosFree(generics.ListAPIView):
+    authentication_classes = []  
+    permission_classes = [AllowAny]  
+    
+
+    def get_queryset(self):
+        videos_free =[3,4,5]
+       
+        return Video.objects.filter(id_in=videos_free)
+    serializer_class = VideoSerializer
