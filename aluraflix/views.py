@@ -1,5 +1,5 @@
 from aluraflix.models import Video,Categoria1
-from aluraflix.serializers import VideoSerializer,Categoria1Serializer, ListaVideosPorCategoriaSerializer
+from aluraflix.serializers import VideoSerializer,Categoria1Serializer, ListaVideosPorCategoriaSerializer,ListaVideosFreeSerializer
 from rest_framework import viewsets,filters,generics
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.authentication import BasicAuthentication
@@ -41,12 +41,10 @@ class ListaVideoPorCategoria(generics.ListAPIView):
     serializer_class =ListaVideosPorCategoriaSerializer
 
 class ListaVideosFree(generics.ListAPIView):
-    authentication_classes = []  
-    permission_classes = [AllowAny]  
-    
-
+    authentication_classes = [CustomBasicAuthentication]  
+    permission_classes = [IsAuthenticated]  
     def get_queryset(self):
-        videos_free =[3,4,5]
-       
-        return Video.objects.filter(id_in=videos_free)
-    serializer_class = VideoSerializer
+       queryset =Video.objects.filter(free=True)
+       return queryset
+    serializer_class = ListaVideosFreeSerializer
+    

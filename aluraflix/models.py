@@ -13,6 +13,7 @@ class Video(models.Model):
     description = models.TextField(max_length=300, null=False, blank=False)
     url = models.URLField(max_length = 50, null=False, blank=False )
     categoria = models.ForeignKey(Categoria1, on_delete=models.SET_DEFAULT,null=False,default=1)
+    free = models.BooleanField(blank=False,null=False,default=False)
 
     def __str__(self):
         return self.titulo

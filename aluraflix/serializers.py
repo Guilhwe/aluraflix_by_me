@@ -17,5 +17,11 @@ class ListaVideosPorCategoriaSerializer(serializers.ModelSerializer):
 
         model = Video
         fields ='__all__'
+
+class ListaVideosFreeSerializer(serializers.ModelSerializer):
+    free = serializers.ReadOnlyField(source ='video.free')
+    class Meta:
+        model = Video
+        fields = '__all__'
         
     
