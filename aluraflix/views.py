@@ -41,8 +41,7 @@ class ListaVideoPorCategoria(generics.ListAPIView):
     serializer_class =ListaVideosPorCategoriaSerializer
 
 class ListaVideosFree(generics.ListAPIView):
-    authentication_classes = [CustomBasicAuthentication]  
-    permission_classes = [IsAuthenticated]  
+   
     def get_queryset(self):
        queryset =Video.objects.filter(free=True)
        return queryset
